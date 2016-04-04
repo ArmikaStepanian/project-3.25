@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+      http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <view-state id="main">
+        <transition on="add" to="form"/>
+        <transition on="edit" to="form">
+            <set name="requestScope.id" value="requestParameters.id" type="java.lang.Long" />
+            <evaluate expression="backpackService.getBackpack(id)" result="flowScope.backpack" result-type="ru.stepanian.project.entities.Backpack"></evaluate>
+        </transition>
+    </view-state>
+
+    <view-state id="form">
+        <transition on="saveChanges" to="saved">
+            <evaluate expression="backpackService.edit(backpack)" />
+        </transition>
+        <transition on="exit" to="finish" />
+        <transition on="cancel" to="cancel"/>
+    </view-state>
+
+    <end-state id="saved"/>
+    <end-state id="cancel"/>
+    <end-state id="finish"/>
+
+</flow>

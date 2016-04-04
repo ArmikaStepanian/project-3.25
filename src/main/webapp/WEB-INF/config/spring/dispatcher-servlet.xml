@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- Dispatcher Servlet - определяет инфраструктуру обработки запросов сервлетом -->
+
+    <import resource="webflow.xml" />
+    <import resource="controllers.xml" />
+    <import resource="data-source.xml" />
+
+    <!-- Настраивает управление транзакциями с помощью аннотации @Transactional -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+    <!-- Запросы в базу должны быть транзакционными -->
+    <bean id="transactionManager"
+          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <!-- Включаем опцию использования конфигурационных аннотаций для Spring-контейнера (@Component, @Autowired) -->
+    <context:annotation-config />
+
+    <!-- Определяем папки, в которых будем автоматически искать бины-компоненты POJO -->
+    <context:component-scan base-package="ru.stepanian.project" />
+
+    <!-- Обрабатывает HTTP GET запросы для указанного каталога более эффективно для статичных ресурсов -->
+    <mvc:resources location="/resources/" mapping="/resources/**" />
+
+    <!-- Бин для использования css стилей и других файлов ресурсов в jsf-страницах -->
+    <bean name="resourceHandlerJSF" class="org.springframework.faces.webflow.JsfResourceRequestHandler" />
+
+    <!-- Прописываем, чтобы запросы типа /javax.faces.resource/** обрабатывались хэндлером SimpleUrlHandlerMapping -->
+    <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="order" value="1" />
+        <property name="mappings">
+            <value>
+                /javax.faces.resource/**=resourceHandlerJSF
+            </value>
+        </property>
+    </bean>
+
+    <!-- Для обработки запросов с помощью потоков -->
+    <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+        <property name="flowRegistry" ref="flowRegistry" />
+        <property name="order" value="2" />
+    </bean>
+
+    <!-- Адаптер, ссылается на flowExecutor описанный в webflow.xml -->
+    <bean class="org.springframework.faces.webflow.JsfFlowHandlerAdapter">
+        <property name="flowExecutor" ref="flowExecutor" />
+    </bean>
+
+    <!-- Указываем где лежат файлы локализации -->
+    <bean id="lbl" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="classpath:lable" />
+        <property name="defaultEncoding" value="UTF-8" />
+    </bean>
+
+    <!-- Устанавливает язык приложения по умолчанию на уровне сессии -->
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+        <property name="defaultLocale" value="ru" />
+    </bean>
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+                <property name="paramName" value="lang"/>
+            </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <!-- Где лежат отображения, которые не связаны с потоками
+    Определяет какое представление рендерить на основании вычеслений в @Controller (return ModelAndView) -->
+    <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <property name="viewClass" value="org.springframework.faces.mvc.JsfView"/>
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".xhtml"/>
+    </bean>
+
+</beans>

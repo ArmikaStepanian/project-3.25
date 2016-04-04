@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:view>
+
+    <h:head>
+        <title>Edit</title>
+    </h:head>
+
+    <body>
+
+    <h:outputStylesheet library="css" name="main.css" />
+
+    <div class="header-wrap">
+
+        <br />
+
+        <h:form>
+            <h:commandButton value="#{lbl.exit}" action="cancel"  />
+        </h:form>
+
+        <br />
+
+            <b>#{lbl.edit}:</b>
+
+        <h:form><br />
+
+            <h:outputLabel value="#{lbl.name}:" />
+            <h:inputText id="name" value="#{backpack.name}" required="true" requiredMessage="Поле обязательно к заполнению."/><br />
+            <h:message for="name" style="color: red;"/><br />
+
+            <h:outputLabel value="#{lbl.brand}:" />
+            <h:selectOneMenu id="brand"  value="#{backpack.brand}" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="Поле обязательно к заполнению." >
+                <f:selectItem itemLabel="#{lbl.select}" itemValue="" />
+                <f:selectItems value="${brandService.selectItems}"  />
+            </h:selectOneMenu><br />
+            <h:message for="brand" style="color: red;"/><br />
+
+             <h:commandButton value="#{lbl.edit}" action="saveChanges" /><br />
+             <h:commandButton value="#{lbl.cancel}" action="cancel" /><br />
+
+        </h:form>
+
+    </div>
+
+    </body>
+
+</f:view>
+
+</html>

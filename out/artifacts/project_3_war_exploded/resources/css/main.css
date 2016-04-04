@@ -1,0 +1,59 @@
+/* reset */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, font, img, ins, kbd, q, s, samp, small, strike, sub, sup, tt, var, dd, dl, dt, li, ol, ul, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    border: 0 none;
+    font-size: 100%;
+    font-style: inherit;
+    font-weight: inherit;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    vertical-align: baseline;
+}
+a img, :link img, :visited img { border:0 none; }
+table { border-collapse: collapse; border-spacing: 0; }
+ol, ul { list-style-image: none; list-style-position: outside; list-style-type: none; }
+q:before, q:after, blockquote:before, blockquote:after { content:""; }
+
+/* css begin */
+html, body { height:100%; }
+body {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    color: darkslategray;
+    background: #dddddd;
+    width: 100%;
+    min-width: 950px;
+}
+
+#wrap {
+    position: relative;
+    width: 940px;
+    margin: 0 auto;
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+}
+
+/* header */
+.header { width: 100%; height: 40px; background: #dddddd; }
+.header-wrap { width: 940px; margin: 0 auto; }
+.language { float: left; margin-top: 15px; }
+.aut { float: right; width: 80px; font-size: 14px; margin-top: 15px; }
+
+
+/* footer */
+#footer {
+    position: relative;
+    height: 40px;
+    width: 100%;
+    background: #dddddd;
+}
+.footer-wrap { width: 940px; margin: 0 auto; }
+.footer-wrap p { padding-top: 15px; }
+
+.footer_blank {	clear: both; height: 48px; }
+.clear { clear: both; }
+
+
