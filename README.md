@@ -1,6 +1,6 @@
 # project-3.25
 
-Шаблон веб-проекта CRUD (create, read, update, delete)
+Шаблон веб-проекта CRUD (create, read, update, delete)<br/>
 Web-project template CRUD
 
 Java 1.8
