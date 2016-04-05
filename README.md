@@ -1,5 +1,5 @@
 # project-3.25
-CRUD web-project Spring Web Flow 4, JSF 2
+
 Шаблон веб-проекта CRUD (create, read, update, delete)
 Web-project template CRUD
 
