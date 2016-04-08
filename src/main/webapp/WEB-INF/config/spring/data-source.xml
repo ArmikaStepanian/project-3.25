@@ -39,7 +39,7 @@
 
     <bean id="backpackService"
                 class="ru.stepanian.project.service.impl.BackpackServiceImpl">
-        <property name="backpackDAO" ref="backpackDAO"></property>
+        <property name="backpackDAO" ref="backpackDAO" />
     </bean>
 
 </beans>
