@@ -35,26 +35,26 @@
                     <p:dataTable value="#{backpackService.listBackpacks()}" var="b" style="width: 940px;">
 
                     <p:column headerText="#{lbl.id}">
-                        <h:outputText value="#{b[0]}" />
+                        <h:outputText value="#{b.id}" />
                     </p:column>
 
                     <p:column headerText="#{lbl.name}">
-                        <h:outputText value="#{b[1]}" />
+                        <h:outputText value="#{b.name}" />
                     </p:column>
 
                     <p:column headerText="#{lbl.brand}">
-                        <h:outputText value="#{b[2]}" />
+                        <h:outputText value="#{b.brand.name}" />
                     </p:column>
 
                     <p:column>
                         <h:commandButton value="#{lbl.edit}" action="edit" >
-                            <f:param name="id" value="#{b[0]}" />
+                            <f:param name="id" value="#{b.id}" />
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                         </h:commandButton>
                     </p:column>
 
                     <p:column>
-                        <h:commandButton value="#{lbl.delete}" action="#{backpackService.deleteRow(b[0])}" style="color: #ff0000"
+                        <h:commandButton value="#{lbl.delete}" action="#{backpackService.deleteRow(b.id)}" style="color: #ff0000"
                             onclick="return confirm('#{lbl.del}?')">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                         </h:commandButton>

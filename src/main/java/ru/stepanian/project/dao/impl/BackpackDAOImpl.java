@@ -3,6 +3,7 @@ package ru.stepanian.project.dao.impl;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.transform.Transformers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -31,7 +32,8 @@ public class BackpackDAOImpl implements BackpackDAO {
     @Override
     public List<Backpack> listBackpacks() {
         Query query = sessionFactory.getCurrentSession().createQuery("" +
-                "select bp.id, bp.name, brand.name from Backpack bp order by bp.id");
+                "select bp.id as id, bp.name as name, bp.brand as brand from Backpack bp order by bp.id")
+                .setResultTransformer(Transformers.aliasToBean(Backpack.class));
         return (List<Backpack>)query.list();
     }
 
