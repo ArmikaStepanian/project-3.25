@@ -67,7 +67,7 @@ public class BackpackDAOImpl implements BackpackDAO {
     @Override
     public Backpack getBackpack( Long id ) {
         Session session = this.sessionFactory.getCurrentSession();
-        Backpack backpack = (Backpack) session.get(Backpack.class, id);
+        Backpack backpack = session.get(Backpack.class, id);
         logger.info("Backpack:" + backpack );
         return backpack;
     }
@@ -75,7 +75,7 @@ public class BackpackDAOImpl implements BackpackDAO {
     @Override
     public void edit(Backpack backpack) {
         Session session = this.sessionFactory.getCurrentSession();
-        Backpack existingBackpack = (Backpack) session.get(Backpack.class, backpack.getId());
+        Backpack existingBackpack = session.get(Backpack.class, backpack.getId());
         existingBackpack.setName(backpack.getName());
         existingBackpack.setBrand(backpack.getBrand());
         session.save(existingBackpack);
